@@ -32,6 +32,17 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                     </form>
+                    @if(\App\PolicyCheck::pv('admin'))
+                        <form action="{{ route('categories.isActive', $category->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('POST')
+                            @if ($category->isActive == 0)
+                                <button type="submit" class="btn btn-secondary">Active</button>
+                            @else
+                                <button type="submit" class="btn btn-warning">DeActive</button>
+                            @endif
+                        </form>
+                    @endif
 
                 </td>
             </tr>

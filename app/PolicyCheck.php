@@ -19,14 +19,17 @@ class PolicyCheck
 
         public static function pv($policyName) {
             $user_id = Auth::user()->id;
-
+//            $user_role=Auth::user()->role;
             $thePolicy = Policy::where('name', $policyName)->first();
-
+//            dd(\auth()->user());
+            dd($thePolicy);
             if ($thePolicy === null) {
                 return false; // Policy not found
             }
 
             $isPolicy = DB::select("SELECT * FROM policy_user WHERE user_id = ? AND policy_id = ?", [$user_id, $thePolicy->id]);
+
+
 
             if (count($isPolicy) == 0) {
                 return false;

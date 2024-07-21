@@ -51,24 +51,24 @@
                 </div>
                 <div class="ms-3">
                     <h6 class="mb-0"></h6>
-                    <span>Admin</span>
+                    <span>{{auth()->user()->role}}</span>
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="/dashboard" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                @if(\App\PolicyCheck::pv('admin') || \App\PolicyCheck::pv('editor')  )
-
-                <a href="{{ route('dashboard.category.index') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Categories</a>
+                @if(\App\Policycheck::pv('admin'))
+                    <a href="{{route('users.create')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Create New User</a>
+                    <a href="{{route('dashboard/users')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Users</a>
+                    <a href="{{route('categories.create')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Create Category</a>
                 @endif
-                @if(\App\PolicyCheck::pv('admin') || \App\PolicyCheck::pv('supervisor')  )
-                <a href="{{ route('dashboard.product.index') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Products</a>
+                @if(\App\Policycheck::pv('supervisor') || \App\Policycheck::pv('admin'))
+                    <a href="{{route('dashboard/categories')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Categories</a>
                 @endif
-                @if(\App\PolicyCheck::pv('admin')  )
-
-                <a href="{{ route('dashboard.user.index') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>User</a>
-
+                @if(\App\Policycheck::pv('editor'))
+                    <a href="{{route('dashboard/products.create')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Create Product</a>
                 @endif
-
+                @if(\App\Policycheck::pv('editor') || \App\Policycheck::pv('supervisor'))
+                <a href="{{route('dashboard/products.index')}}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Products</a>
+                    @endif
             </div>
         </nav>
     </div>
@@ -138,7 +138,7 @@
                             <h6 class="fw-normal mb-0">Profile updated</h6>
                             <small>15 minutes ago</small>
                         </a>
-                        <hr class="dropdown-divider">
+                        <hr class="dropdown-divider">F
                         <a href="#" class="dropdown-item">
                             <h6 class="fw-normal mb-0">New user added</h6>
                             <small>15 minutes ago</small>

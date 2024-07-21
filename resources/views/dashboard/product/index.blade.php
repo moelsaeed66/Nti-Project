@@ -41,6 +41,23 @@
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                     </form>
                 </td>
+                <td>
+                    <form action="{{ route('dashboard.products.destroy',$product->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <a class="btn btn-info" href="{{ route('dashboard.products.show', $product->id) }}">Show</a>
+                        @if(\App\Policycheck::pv('supervisor') || (\App\Policycheck::pv('editor') && $product->added_by == Session::get('userId')))
+                            <a class="btn btn-primary" href="{{ route('dashboard.products.edit', $product->id) }}">Edit</a>
+                        @endif
+                        @if(\App\Policycheck::pv('admin'))
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        @endif
+                    </form>
+                    @if(\App\Policycheck::pv('supervisor'))
+                        <a class="btn {{ $product->needReview ? " btn-primary" :" btn-danger" }}" href="{{ route('dashboard.users.publish', $product->id) }}">publish</a>
+                    @endif
+
+                </td>
             </tr>
         @endforeach
         </tbody>
